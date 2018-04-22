@@ -1,0 +1,53 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    name: doom-engine
+spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        name: doom-engine
+    template:
+      metadata:
+        labels:
+          name: doom-engine
+      spec:
+        containers:
+        - name: doom-engine
+          image: adamsandor83/doom-engine:3
+          ports:
+          - containerPort: 8080
+            name: web
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+          env:
+            - name: DOOM_STATE_SERVICE_URL
+              value: http://doom-state
+            - name: DOOM_STATE_SERVICE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "doom-state-secrets"
+                  key: "doom-engine-password"
+---
+kind: Service
+apiVersion: v1
+metadata:
+    name: doom-engine
+spec:
+    ports:
+    - name: web
+      port: 80
+      targetPort: 8080
+    selector:
+      name: doom-engine
+    type: LoadBalancer

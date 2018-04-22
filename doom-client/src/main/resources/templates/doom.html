@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DOOM</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+            integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+            crossorigin="anonymous"/>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+            crossorigin="anonymous"/>
+    <script src="gui.js"/>
+
+    <style>
+        body {
+            color: red;
+        }
+
+
+    </style>
+</head>
+<body background="background.png">
+<div class="container">
+    <h1 th:text="DOOM"/>
+    <h3>Player</h3>
+    <div>
+        <table>
+            <tr>
+                <td>Health:</td>
+                <td th:text="${state.player.health}"></td>
+            </tr>
+        </table>
+    </div>
+    <h3>Demons</h3>
+    <div class="row">
+        <div th:each="demon : ${state.demonList}" class="col-md-1">
+            Demon <span th:text="${demon.id}"/>
+            <img th:if="${demon.health} &gt; 0" src="imp-face.png" width="80" class="demon-img" data-demonid="4"/>
+            <img th:if="${demon.health} &lt;= 0" src="imp-dead.png" width="80"/>
+            <span th:text="${demon.health}"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

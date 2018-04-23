@@ -6,8 +6,10 @@ MODULE=$1
 
 VERSION=$2
 
-mvn -f ${MODULE}/pom.xml package docker:build
+mvn -f ${MODULE}/pom.xml package
 
-docker tag adamsandor83/${MODULE}:latest adamsandor83/${MODULE}:${VERSION}
+docker build --no-cache -t adamsandor83/${MODULE} ./${MODULE}
 
-docker push adamsandor83/${MODULE}:${VERSION}
+docker tag adamsandor83/${MODULE}:latest ${MODULE}:${VERSION}
+
+#docker push adamsandor83/${MODULE}:${VERSION}

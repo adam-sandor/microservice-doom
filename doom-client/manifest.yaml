@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
     name: doom-client
 spec:
-    replicas: 3
+    replicas: 1
     selector:
       matchLabels:
         name: doom-client
@@ -14,22 +14,22 @@ spec:
       spec:
         containers:
         - name: doom-client
-          image: adamsandor83/doom-client:1
+          image: doom-client:1
           ports:
           - containerPort: 8080
             name: web
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 3
-            timeoutSeconds: 1
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 30
-            timeoutSeconds: 1
+#          readinessProbe:
+#            httpGet:
+#              path: /health
+#              port: 8080
+#            initialDelaySeconds: 3
+#            timeoutSeconds: 1
+#          livenessProbe:
+#            httpGet:
+#              path: /health
+#              port: 8080
+#            initialDelaySeconds: 30
+#            timeoutSeconds: 1
           env:
             - name: DOOM_STATE_SERVICE_URL
               value: http://doom-state
@@ -52,4 +52,4 @@ spec:
       targetPort: 8080
     selector:
       name: doom-client
-    type: LoadBalancer
+    type: NodePort

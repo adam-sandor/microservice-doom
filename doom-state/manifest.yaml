@@ -14,22 +14,22 @@ spec:
       spec:
         containers:
         - name: doom-state
-          image: adamsandor83/doom-state:1
+          image: doom-state:1
           ports:
           - containerPort: 8080
             name: web
-#          readinessProbe:
-#            httpGet:
-#              path: /health
-#              port: 8080
-#            initialDelaySeconds: 3
-#            timeoutSeconds: 1
-#          livenessProbe:
-#            httpGet:
-#              path: /health
-#              port: 8080
-#            initialDelaySeconds: 30
-#            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
 ---
 kind: Service
 apiVersion: v1

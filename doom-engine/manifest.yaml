@@ -14,7 +14,7 @@ spec:
       spec:
         containers:
         - name: doom-engine
-          image: adamsandor83/doom-engine:3
+          image: doom-engine:1
           ports:
           - containerPort: 8080
             name: web
@@ -50,4 +50,4 @@ spec:
       targetPort: 8080
     selector:
       name: doom-engine
-    type: LoadBalancer
+    type: ClusterIP

@@ -33,6 +33,8 @@ spec:
           env:
             - name: DOOM_STATE_SERVICE_URL
               value: http://doom-state
+            - name: DOOM_ENGINE_SERVICE_URL
+              value: http://doom-engine
             - name: DOOM_STATE_SERVICE_PASSWORD
               valueFrom:
                 secretKeyRef:

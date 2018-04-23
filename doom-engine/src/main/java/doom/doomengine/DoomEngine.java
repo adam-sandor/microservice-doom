@@ -35,22 +35,28 @@ public class DoomEngine {
     public String shootDemon(@RequestBody ShootRequest request) throws IOException {
         switch (request.getWeapon()) {
             case "shotgun": {
-                shootDemon(request.getDemonId(), 10);
+                shootDemon(request.getDemonId(), 10, 1);
                 return "Shot demon " + request.getDemonId() + " with shotgun for 10 damage";
             }
             case "doublebarelled": {
-                shootDemon(request.getDemonId(), 20);
+                shootDemon(request.getDemonId(), 20, 2);
                 return "Shot demon " + request.getDemonId() + " with doublebarelled for 20 damage";
             }
             default: throw new IllegalArgumentException("Unknown weapon: '" + request.getWeapon() + "'");
         }
     }
 
-    private void shootDemon(int id, int damage) throws IOException {
-        Demon demon = getState().getDemons().get(id);
+    private void shootDemon(int id, int damage, int ammo) throws IOException {
+        DoomState state = getState();
+        Demon demon = state.getDemons().get(id);
+        Player player = state.getPlayer();
         if (demon.getHealth() > 0) {
             DemonRequest request = new DemonRequest(id, demon.getHealth() - damage);
             restTemplate.postForObject(doomStateServiceUrl + "/demon", request, Void.class);
+        }
+        if (player.getShotgunAmmo() > 0) {
+            PlayerRequest request = new PlayerRequest(null, Math.max(player.getShotgunAmmo() - ammo, 0));
+            restTemplate.postForObject(doomStateServiceUrl + "/player", request, Void.class);
         }
     }
 

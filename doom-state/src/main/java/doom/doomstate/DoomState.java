@@ -50,6 +50,7 @@ public class DoomState {
 
     @RequestMapping(value = "/player", method = POST)
     public void setPlayer(@RequestBody PlayerRequest request) {
+        logger.info("Player updated:\n\thealth={}\n\tammo={}", request.getSetHealth(), request.getSetShotgunAmmo());
         Player oldPlayer = player;
         player = new Player(request.getSetHealth() == null ? oldPlayer.getHealth() : request.getSetHealth(),
                 request.getSetShotgunAmmo() == null ? oldPlayer.getShotgunAmmo() : request.getSetShotgunAmmo());

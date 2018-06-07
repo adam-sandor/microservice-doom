@@ -43,7 +43,7 @@ public class DoomEngine {
 
     private RestTemplate stateService;
 
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
     public void moveDemons() throws IOException {
         DoomState state = getState();
         List<Demon> demons = new ArrayList<>(state.getDemons().values());

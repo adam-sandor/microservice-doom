@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
     name: doom-client
 spec:
-    replicas: 3
+    replicas: 1
     selector:
       matchLabels:
         name: doom-client
@@ -14,7 +14,7 @@ spec:
       spec:
         containers:
         - name: doom-client
-          image: doom-client:2
+          image: adamsandor83/doom-client:1
           ports:
           - containerPort: 8080
             name: web

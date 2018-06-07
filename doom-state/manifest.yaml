@@ -14,7 +14,7 @@ spec:
       spec:
         containers:
         - name: doom-state
-          image: doom-state:1
+          image: adamsandor83/doom-state:1
           ports:
           - containerPort: 8080
             name: web

@@ -14,7 +14,7 @@ spec:
       spec:
         containers:
         - name: doom-engine
-          image: doom-engine:1
+          image: adamsandor83/doom-engine:1
           ports:
           - containerPort: 8080
             name: web
